@@ -8,23 +8,28 @@ MARKDOWN_FILES = md/introduction.md \
 	md/virtual_machines.md \
 	md/bibliography.md     # Список markdown файлов
 
+MARKDOWN = md2/state.md \
+	md2/bibliography.md
+
 OUTPUT_PDF = output.pdf		# Имя выходного PDF файла
-BIB_FILE = bibliography.bib
+BIB_FILE = bibliography2.bib
 
 FONT_NAME = "Times New Roman"
-FONT_SIZE = 14pt
-MARGIN = "margin=2cm"
+MARGIN = "margin=4.3cm"
+MARGIN_TOP = "2cm"
+MARGIN_BOTTOM = "2cm"
 
 PANDOC_OPTIONS = --pdf-engine=xelatex \
 				-d settings.yaml \
-				--resource-path=img \
+				--resource-path=img2 \
 				-F pandoc-crossref \
 				--citeproc \
 				--bibliography=$(BIB_FILE) \
 				--csl=gost-r-7-0-5-2008-numeric-iaa.csl \
 				--variable mainfont=$(FONT_NAME) \
-				--variable fontsize=$(FONT_SIZE) \
-				--variable geometry=$(MARGIN)
+				--variable geometry=$(MARGIN) \
+				--variable geometry:top=$(MARGIN_TOP) \
+				--variable geometry:bottom=$(MARGIN_BOTTOM)
 
 # -d settings.yaml - для указания файла конфигурации
 # --toc - создать оглавление
@@ -37,8 +42,8 @@ PANDOC_OPTIONS = --pdf-engine=xelatex \
 all: $(OUTPUT_PDF)
 
 # Команда для создания PDF из Markdown
-$(OUTPUT_PDF): $(MARKDOWN_FILES) $(BIB_FILE)
-	pandoc $(PANDOC_OPTIONS) --toc -N -o $@ $(MARKDOWN_FILES) 
+$(OUTPUT_PDF): $(MARKDOWN) $(BIB_FILE)
+	pandoc $(PANDOC_OPTIONS) -o $@ $(MARKDOWN)
 
 # Правило для очистки
 clean:
