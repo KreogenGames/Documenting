@@ -1,0 +1,13 @@
+documentclass: article
+header-includes: |
+    \pagestyle{empty}
+    \usepackage{fontspec}
+    \usepackage{polyglossia}
+    \usepackage{unicode-math}
+    \setmainlanguage{russian}
+    \setotherlanguage{english}
+    \usepackage{unicode-math}
+    \usepackage{caption}
+    \captionsetup[figure]{font={normalfont},format=plain,labelsep=endash}
+    \captionsetup[table]{font={normalfont},format=plain,labelsep=period}
+    \usepackage{hyperref}

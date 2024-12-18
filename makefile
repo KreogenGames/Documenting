@@ -19,17 +19,17 @@ MARGIN = "margin=4.3cm"
 MARGIN_TOP = "2cm"
 MARGIN_BOTTOM = "2cm"
 
-PANDOC_OPTIONS = --pdf-engine=xelatex \
-				-d settings.yaml \
+PANDOC_OPTIONS = -d settings.yaml \
 				--resource-path=img2 \
 				-F pandoc-crossref \
 				--citeproc \
-				--bibliography=$(BIB_FILE) \
-				--csl=gost-r-7-0-5-2008-numeric-iaa.csl \
 				--variable mainfont=$(FONT_NAME) \
 				--variable geometry=$(MARGIN) \
 				--variable geometry:top=$(MARGIN_TOP) \
 				--variable geometry:bottom=$(MARGIN_BOTTOM)
+
+# 				--bibliography=$(BIB_FILE) \
+				--csl=gost-r-7-0-5-2008-numeric-iaa.csl \
 
 # -d settings.yaml - для указания файла конфигурации
 # --toc - создать оглавление
@@ -43,7 +43,7 @@ all: $(OUTPUT_PDF)
 
 # Команда для создания PDF из Markdown
 $(OUTPUT_PDF): $(MARKDOWN) $(BIB_FILE)
-	pandoc $(PANDOC_OPTIONS) -o $@ $(MARKDOWN)
+	pandoc $(MARKDOWN) $(PANDOC_OPTIONS) --metadata-file pdf.yaml -o $@ --pdf-engine=xelatex
 
 # Правило для очистки
 clean:
